@@ -1,2 +1,2 @@
 # AirBnB_clone
-Exercises for the Project 0x05. Processes and signals
+Exercises for the Project 0x00. AirBnB clone - The console
