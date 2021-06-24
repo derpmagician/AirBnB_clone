@@ -2,8 +2,8 @@
 """Entry point for BaseModel"""
 import uuid
 from datetime import datetime
-import models
-format = "%Y-%m-%dT%H:%M:%S.%f"
+from models import storage
+dformat = "%Y-%m-%dT%H:%M:%S.%f"
 
 
 class BaseModel:
@@ -18,7 +18,7 @@ class BaseModel:
         if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
-                    setattr(self, key, datetime.strptime(value, format))
+                    setattr(self, key, datetime.strptime(value, dformat))
                 elif key == "__class__":
                     pass
                 else:
