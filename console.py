@@ -31,5 +31,36 @@ class HBNBCommand(cmd.Cmd):
         if len(data) >= 2:
             pass
 
+    def do_count(self, args):
+        """count # of instances of a class"""
+        if not args:
+            print('** class name missing **')
+        else:
+            m = []
+            objects = models.storage.all()
+            data = args.split()
+            if not data[0]:
+                print("** class name missing **")
+            elif data[0] not in classes:
+                print("** class doesn't exist **")
+            else:
+                for i in objects:
+                    if i.startswith(data[0]):
+                        m = [i]
+                print(len(m))
+
+    def emptyline(self):
+        """Ignore empty lines"""
+        pass
+
+    def do_quit(self, args):
+        """Quit command to exit"""
+        return True
+
+    def do_EOF(self, args):
+        """Quit command to exit at end of file"""
+        print()
+        return True
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
