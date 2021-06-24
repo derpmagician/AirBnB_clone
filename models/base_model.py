@@ -38,3 +38,13 @@ class BaseModel:
         self.updated_at = datetime.now()
         storage.save()
 
+	def to_dict(self):
+        '''
+        creates dic of the class and returns a dic of all the k val in __dict__
+        '''
+        mydict = self.__dict__.copy()
+        mydict["created_at"] = mydict["created_at"].isoformat()
+        mydict["updated_at"] = mydict["updated_at"].isoformat()
+        mydict["__class__"] = self.__class__.__name__
+
+        return mydict
