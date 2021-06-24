@@ -3,8 +3,7 @@
 import uuid
 from datetime import datetime
 from models import storage
-dformat = "%Y-%m-%dT%H:%M:%S.%f"
-
+format = '%Y-%m-%dT%H:%M:%S.%f'
 
 class BaseModel:
     """Class for BaseModel"""
