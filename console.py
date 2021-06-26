@@ -62,5 +62,56 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
+    def do_create(self, args):
+        """Creates an instance"""
+        if not args:
+            print('** class name missing **')
+        else:
+            s = ""
+            for i in args:
+                s += i
+            data = s.split()
+            if data[0] not in classes:
+                print("** class doesn't exist **")
+            else:
+                if s == "BaseModel":
+                    obj = BaseModel()
+                elif s == "User":
+                    obj = User()
+                elif s == "State":
+                    obj = State()
+                elif s == "City":
+                    obj = City()
+                elif s == "Amenity":
+                    obj = Amenity()
+                elif s == "Place":
+                    obj = Place()
+                else:
+                    obj = Review()
+                obj.save()
+                print(obj.id)
+
+    def do_destroy(self, args):
+        """ method that delete an object """
+        if not args:
+            print('** class name missing **')
+        else:
+            s = ""
+            for i in args:
+                s += i
+            data = s.split()
+            if data[0] not in classes:
+                print("** class doesn't exist **")
+            else:
+                all_objs = storage.all()
+                if len(data) < 2:
+                    print("** instance id missing **")
+                else:
+                    if (data[0] + "." + data[1]) in all_objs:
+                        del storage.all()[data[0] + "." + data[1]]
+                        storage.save()
+                    else:
+                        print("** no instance found **")
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
