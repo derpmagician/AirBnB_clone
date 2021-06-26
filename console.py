@@ -91,10 +91,31 @@ class HBNBCommand(cmd.Cmd):
                 obj.save()
                 print(obj.id)
 
+    def do_show(self, args):
+        """Print the object with id specified and his dictionary"""
+        if not args:
+            print('** class name missing **')
+        else:
+            s = ""
+            for i in args:
+                s += i
+            data = s.split()
+            if data[0] not in classes:
+                print("** class doesn't exist **")
+            else:
+                all_objs = storage.all()
+                if len(data) < 2:
+                    print("** instance id missing **")
+                else:
+                    if (data[0] + "." + data[1]) in all_objs:
+                        print(storage.all()[data[0] + "." + data[1]])
+                    else:
+                        print("** no instance found **")
+
     def do_destroy(self, args):
         """ method that delete an object """
         if not args:
-            print('** class name missing **')
+            print("** class name missing **")
         else:
             s = ""
             for i in args:
