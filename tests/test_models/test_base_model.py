@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 """Unittest for base model module.
 This unittest is a collection of possible edge cases
 on which this module should not be expected to fail,
@@ -72,7 +71,7 @@ class TestBaseModel(unittest.TestCase):
         Tests a badly named UUID, to confirm that it is checked.
         """
         bm = BaseModel()
-        bm.id = 'Hola soy Goku
+        bm.id = 'Hola soy Goku'
         warn = 'badly formed hexadecimal UUID string'
 
         with self.assertRaises(ValueError) as msg:
