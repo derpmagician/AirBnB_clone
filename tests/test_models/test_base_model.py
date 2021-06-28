@@ -135,14 +135,14 @@ class TestBaseModel(unittest.TestCase):
         dic = {"id": "7734cf23-6c89-4662-8483-284727324c77", "created_at":
                "2020-02-17T16:32:39.023915", "updated_at":
                "2020-02-17T16:32:39.023940", "__class__": "BaseModel",
-               "name": "Monty", "last_name": "Python"}
+               "name": "Goku", "last_name": "Son"}
         my_base = BaseModel(**dic)
         self.assertEqual(my_base.__class__.__name__, "BaseModel")
         self.assertEqual(my_base.id, "7734cf23-6c89-4662-8483-284727324c77")
         self.assertEqual(type(my_base.created_at), type(date))
         self.assertEqual(type(my_base.updated_at), type(date))
-        self.assertEqual(my_base.name, "Monty")
-        self.assertEqual(my_base.last_name, "Python")
+        self.assertEqual(my_base.name, "Goku")
+        self.assertEqual(my_base.last_name, "Son")
 
     def test_creation_from_dictionary_advancedx2(self):
         """ This function proves that when passing a dictionary with\
@@ -152,14 +152,14 @@ class TestBaseModel(unittest.TestCase):
         dic = {"id": "7734cf23-6c89-4662-8483-284727324c77", "created_at":
                "2020-02-17T16:32:39.023915", "updated_at":
                "2020-02-17T16:32:39.023940", "__class__": "BaseModel", "name":
-               "Monty", "last_name": "Python", "age": 20, "height": 1.68}
+               "Goku", "last_name": "Son", "age": 20, "height": 1.68}
         my_base = BaseModel(**dic)
         self.assertEqual(my_base.__class__.__name__, "BaseModel")
         self.assertEqual(my_base.id, "7734cf23-6c89-4662-8483-284727324c77")
         self.assertEqual(type(my_base.created_at), type(date))
         self.assertEqual(type(my_base.updated_at), type(date))
-        self.assertEqual(my_base.name, "Monty")
-        self.assertEqual(my_base.last_name, "Python")
+        self.assertEqual(my_base.name, "Goku")
+        self.assertEqual(my_base.last_name, "Son")
         self.assertEqual(my_base.age, 20)
         self.assertEqual(my_base.height, 1.68)
         self.assertEqual(type(my_base.age), int)
@@ -173,14 +173,14 @@ class TestBaseModel(unittest.TestCase):
         dic = {"id": "7734cf23-6c89-4662-8483-284727324c77", "created_at":
                "2020-02-17T16:32:39.023915", "updated_at":
                "2020-02-17T16:32:39.023940", "__class__": "BaseModel", "name":
-               "Monty", "last_name": "Python"}
+               "Goku", "last_name": "Son"}
         my_base = BaseModel(**dic)
         self.assertEqual(my_base.__class__.__name__, "BaseModel")
         self.assertEqual(my_base.id, "7734cf23-6c89-4662-8483-284727324c77")
         self.assertEqual(type(my_base.created_at), type(date))
         self.assertEqual(type(my_base.updated_at), type(date))
-        self.assertEqual(my_base.name, "Monty")
-        self.assertEqual(my_base.last_name, "Python")
+        self.assertEqual(my_base.name, "Goku")
+        self.assertEqual(my_base.last_name, "Son")
         self.assertEqual(type(my_base.last_name), str)
 
     def test_init(self):
