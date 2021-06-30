@@ -273,11 +273,11 @@ class TestUser(unittest.TestCase):
             HBNBCommand().onecmd("User.update(\"{}\", \'name\')".format(id))
         self.assertEqual(f.getvalue(), '** value missing **\n')
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("User.update(\"{}\", \'name\', \"Betty\")".
+            HBNBCommand().onecmd("User.update(\"{}\", \'name\', \"Goku\")".
                                  format(id))
         self.assertEqual(f.getvalue(), '')
         with patch('sys.stdout', new=StringIO()) as f:
-            a = "User.update(\"{}\", \'name\', \"Betty Holberton\")".format(id)
+            a = "User.update(\"{}\", \'name\', \"Goku Holberton\")".format(id)
             HBNBCommand().onecmd(a)
         self.assertEqual(f.getvalue(), '')
 
