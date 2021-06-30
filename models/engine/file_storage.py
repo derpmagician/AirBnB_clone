@@ -1,6 +1,20 @@
 #!/usr/bin/python3
-""" Module file_storage for the AirBnB console """
+"""
+File storage
+"""
 import json
+import os
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+
+classes = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
+           'State': State, 'City': City, 'Amenity': Amenity,
+           'Review': Review}
 
 
 class FileStorage:
@@ -15,42 +29,21 @@ class FileStorage:
 
     def new(self, obj):
         """ method that adds a new object """
-        key = obj.__class__.__name__ + "." + str(obj.id)
-        self.__objects[key] = obj
+         self.__objects[obj.__class__.__name__ + "." + obj.id] = obj
 
     def save(self):
         """ method that saves a new object """
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as fp:
-            d = {i: j.to_dict() for i,
-                 j in self.__objects.items()}
-            json.dump(d, fp)
+        new = {}
+        for elem in self.__objects:
+            new[elem] = self.__objects[elem].to_dict()
+        with open(self.__file_path, 'w') as fd:
+            json.dump(new, fd)
 
     def reload(self):
         """ method that loads the objectos from de file """
-        from models.base_model import BaseModel
-        from models.user import User
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.place import Place
-        from models.review import Review
-        try:
-            with open(FileStorage.__file_path) as fp:
-                data = json.load(fp)
-                for i, j in data.items():
-                    if "BaseModel" in i:
-                        self.__objects[i] = BaseModel(**j)
-                    elif "User" in i:
-                        self.__objects[i] = User(**j)
-                    elif "State" in i:
-                        self.__objects[i] = State(**j)
-                    elif "City" in i:
-                        self.__objects[i] = City(**j)
-                    elif "Amenity" in i:
-                        self.__objects[i] = Amenity(**j)
-                    elif "Place" in i:
-                        self.__objects[i] = Place(**j)
-                    elif "Review" in i:
-                        self.__objects[i] = Review(**j)
-        except Exception:
-            pass
+        if os.path.exists(self.__file_path) is True:
+            with open(self.__file_path, 'r') as fd:
+                var = json.load(fd)
+                for elem in var:
+                    aux = classes[var[elem]['__class__']]
+                    self.__objects[elem] = aux(**(var[elem]))
