@@ -115,7 +115,7 @@ class TestUser(unittest.TestCase):
     def test_create(self):
         """Validate create method"""
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("create asdasdasdasd")
+            HBNBCommand().onecmd("create Goku")
         self.assertEqual(f.getvalue(), '** class doesn\'t exist **\n')
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("create")
@@ -252,10 +252,10 @@ class TestUser(unittest.TestCase):
             HBNBCommand().onecmd("update User " + id + " name")
         self.assertEqual(f.getvalue(), '** value missing **\n')
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("update User " + id + " name " + "betty")
+            HBNBCommand().onecmd("update User " + id + " name " + "Goku")
         self.assertEqual(f.getvalue(), '')
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("update User " + id + " name " + "betty")
+            HBNBCommand().onecmd("update User " + id + " name " + "Goku")
         self.assertEqual(f.getvalue(), '')
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("asdasd.update()".format(id))
