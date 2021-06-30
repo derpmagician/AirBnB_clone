@@ -53,8 +53,8 @@ class TestUser(unittest.TestCase):
     def test_wrong_command(self):
         """When press random words no action has to been executed"""
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("daasdas")
-        self.assertEqual(f.getvalue(), '*** Unknown syntax: daasdas\n')
+            HBNBCommand().onecmd("Goku")
+        self.assertEqual(f.getvalue(), '*** Unknown syntax: Goku\n')
 
     def test_help_with_args(self):
         """Test if all docstring were written"""
