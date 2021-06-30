@@ -247,7 +247,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(f.getvalue(), '** no instance found **\n')
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("update User " + id)
-        self.assertEqual(f.getvalue(), '** attribute name missing **\n')
+        self.assertEqual(f.getvalue(), '** instance id missing **\n')
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("update User " + id + " name")
         self.assertEqual(f.getvalue(), '** value missing **\n')
