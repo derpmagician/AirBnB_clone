@@ -25,31 +25,57 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
 
-    def default(self, line):
-        """retrieve all instances of a class and
-        retrieve the number of instances
-        """
-        my_list = line.split('.')
-        if len(my_list) >= 2:
-            if my_list[1] == "all()":
-                self.do_all(my_list[0])
-            elif my_list[1] == "count()":
-                self.count(my_list[0])
-            elif my_list[1][:4] == "show":
-                self.do_show(self.strip_clean(my_list))
-            elif my_list[1][:7] == "destroy":
-                self.do_destroy(self.strip_clean(my_list))
-            elif my_list[1][:6] == "update":
-                args = self.strip_clean(my_list)
-                if isinstance(args, list):
-                    obj = storage.all()
-                    key = args[0] + ' ' + args[1]
-                    for k, v in args[2].items():
-                        self.do_update(key + ' "{}" "{}"'.format(k, v))
+    def default(self, args):
+        """Method when the command is not recognized"""
+        data = args.split('.')
+        if len(data) >= 2:
+            if data[1][:3] == "all":
+                self.do_all(data[0])
+            elif data[1][:5] == "count":
+                self.do_count(data[0])
+            elif data[1][:4] == "show":
+                aux = data[1].split('(')
+                if len(aux) >= 2:
+                    self.do_show(data[0] + ' ' + aux[1][1:-2])
                 else:
-                    self.do_update(args)
+                    print("** no instance found **")
+            elif data[1][:7] == "destroy":
+                aux = data[1].split('(')
+                if len(aux) >= 2:
+                    self.do_destroy(data[0] + ' ' + aux[1][1:-2])
+                else:
+                    print("** no instance found **")
+            elif data[1][:6] == "update":
+                aux = data[1].split('(')
+                key = aux[1].split(' ')
+                if "{" in aux[1] and "}" in aux[1]:
+                    a = re.search(r"(?<=\{)([^\}]+)(?=\})", aux[1]).group(0)
+                    try:
+                        a = eval("{" + a + "}")
+                        b = list(a.keys())
+                        c = list(a.values())
+                        if len(b) == 1:
+                            self.do_update(data[0] + ' ' + key[0][1:-2] + ' ' +
+                                           b[0] + ' ' + '"' + str(c[0]) + '"')
+                        elif len(b) == 2:
+                            self.do_update(data[0] + ' ' + key[0][1:-2] + ' ' +
+                                           b[0] + ' ' + '"' + str(c[0]) + '"')
+                            self.do_update(data[0] + ' ' + key[0][1:-2] + ' ' +
+                                           b[1] + ' ' + '"' + str(c[1]) + '"')
+                    except Exception:
+                        print(Exception.Exception)
+                elif len(aux) >= 2 and len(key) == 3:
+                    self.do_update(data[0] + ' ' + key[0][1:-2] + ' ' +
+                                   key[1][1:-2] + ' ' + key[2][:-1])
+                elif len(key) > 3:
+                    self.do_update(data[0] + ' ' + key[0][1:-2] + ' ' +
+                                   key[1][2:-2] + ' ' + key[2][:-1] + ' ' +
+                                   key[3][1:-2] + ' ' + '"' +
+                                   key[4][1:-2] + '"')
+                else:
+                    print("** no instance found **")
         else:
-            cmd.Cmd.default(self, line)
+            cmd.Cmd.default(self, args)
 
     def do_count(self, args):
         """count # of instances of a class"""
