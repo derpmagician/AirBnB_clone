@@ -1,135 +1,54 @@
 #!/usr/bin/python3
-"""Test User Class - Comproving expectect outputs and documentation
-"""
-
-from datetime import datetime
-import models
-import pep8
-import inspect
+"""test for state"""
 import unittest
-from unittest import mock
-import time
-
-State = models.state.State
-mod_doc = models.state.__doc__
-
-
-class TestDocs(unittest.TestCase):
-    """Test documentation and style"""
-    @classmethod
-    def setUpClass(self):
-        """Setup for dosctring"""
-        user_i = inspect.getmembers(State, inspect.isfunction)
-
-    def testing_pep8(self):
-        """Testing that models_user.py passes pep8 """
-
-    def test_pep8_conformance_user(self):
-        """testing pep8 in state.py"""
-        pep8s = pep8.StyleGuide(quiet=True)
-        result = pep8s.check_files(['models/state.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
-
-    def test_module_docstring(self):
-        """Test for the existence of module docstring"""
-        self.assertIsNot(mod_doc, None,
-                         "base_model.py needs a docstring")
-        self.assertTrue(len(mod_doc) > 1,
-                        "base_model.py needs a docstring")
-
-    def test_dosctring(self):
-        """Testing documentation"""
-        self.assertIsNot(mod_doc, None,
-                         "base_model.py needs a doctring")
-        self.assertTrue(len(mod_doc) > 1,
-                        "base_model.py needs a docstring")
+import os
+from models.state import State
+from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
-class TestBaseModel(unittest.TestCase):
-    """testing BaseModel Class"""
-    @mock.patch('models.state')
-    def test_instances(self, mock_storage):
-        """Testing that object is correctly created"""
-        instance = State()
-        self.assertIs(type(instance), State)
-        instance.name = "Holbies foravaaaa"
+class TestState(unittest.TestCase):
+    """test the State class"""
+    def setUp(self):
+        """Sets up test methods."""
+        FileStorage._FileStorage__file_path = "test_json"
+        self.state = State()
+        self.state.name = "Cundinamarca"
+        self.state.save()
 
-        expectec_attrs_types = {
-            "id": str,
-            "created_at": datetime,
-            "updated_at": datetime,
-            "name": str
-        }
-        # testing types and attr names
-        for attr, types in expectec_attrs_types.items():
-            with self.subTest(attr=attr, typ=types):
-                self.assertIn(attr, instance.__dict__)
-                self.assertIs(type(instance.__dict__[attr]), types)
-        self.assertEqual(instance.name, "Holbies foravaaaa")
+    def test_docstring_State(self):
+        """checking for docstrings"""
+        self.assertIsNotNone(State.__doc__)
 
-    def test_datetime(self):
-        """testing correct datetime assignation
-        correct assignation of created_at and updated_at"""
-        created_at = datetime.now()
-        instance1 = State()
-        updated_at = datetime.now()
-        self.assertEqual(created_at <= instance1.created_at
-                         <= updated_at, True)
-        time.sleep(1)
-        created_at = datetime.now()
-        instance2 = State()
-        updated_at = datetime.now()
-        self.assertTrue(created_at <= instance2.created_at <= updated_at, True)
-        self.assertEqual(instance1.created_at, instance1.created_at)
-        self.assertEqual(instance2.updated_at, instance2.updated_at)
-        self.assertNotEqual(instance1.created_at, instance2.created_at)
-        self.assertNotEqual(instance1.updated_at, instance2.updated_at)
+    def test_attributes_State(self):
+        """chekcing if State have attributes"""
+        self.assertTrue('id' in self.state.__dict__)
+        self.assertTrue('created_at' in self.state.__dict__)
+        self.assertTrue('updated_at' in self.state.__dict__)
+        self.assertTrue('name' in self.state.__dict__)
 
-    def test_uuid(self):
-        """testing uuid"""
-        instance1 = State()
-        instance2 = State()
-        for instance in [instance1, instance2]:
-            tuuid = instance.id
-            with self.subTest(uuid=tuuid):
-                self.assertIs(type(tuuid), str)
+    def test_is_subclass_State(self):
+        """test if State is subclass of BaseModel"""
+        self.assertTrue(issubclass(self.state.__class__, BaseModel), True)
+        self.assertIsInstance(self.state, State)
 
-    def test_dictionary(self):
-        """testing to_dict correct funtionality"""
-        """Testing that object is correctly created"""
-        instance3 = State()
-        self.assertIs(type(instance3), State)
-        instance3.name = "Holbies"
-        new_inst = instance3.to_dict()
-        expectec_attrs = ["id",
-                          "created_at",
-                          "updated_at",
-                          "name",
-                          "__class__"]
-        self.assertCountEqual(new_inst.keys(), expectec_attrs)
-        self.assertEqual(new_inst['__class__'], 'State')
-        self.assertEqual(new_inst['name'], 'Holbies')
+    def test_attribute_types_State(self):
+        """test attribute type for State"""
+        self.assertEqual(type(self.state.name), str)
+        self.assertEqual(hasattr(self.state, "name"), True)
 
-    def test_str_method(self):
-        """testing str method, checking output"""
-        instance4 = State()
-        strr = "[State] ({}) {}".format(instance4.id, instance4.__dict__)
-        self.assertEqual(strr, str(instance4))
+    def test_save_State(self):
+        """test if the save works"""
+        self.state.save()
+        self.assertNotEqual(self.state.created_at, self.state.updated_at)
 
-    @mock.patch('models.storage')
-    def test_save_method(self, mock_storage):
-        """test save method and if it updates
-        "updated_at" calling storage.save"""
-        instance4 = State()
-        created_at = instance4.created_at
-        updated_at = instance4.updated_at
-        instance4.save()
-        new_created_at = instance4.created_at
-        new_updated_at = instance4.updated_at
-        self.assertNotEqual(updated_at, new_updated_at)
-        self.assertEqual(created_at, new_created_at)
-        self.assertTrue(mock_storage.save.called)
+    def test_to_dict_State(self):
+        """test if dictionary works"""
+        self.assertEqual('to_dict' in dir(self.state), True)
+
+    def tearDown(self):
+        os.remove(FileStorage._FileStorage__file_path)
+
 
 if __name__ == "__main__":
     unittest.main()
