@@ -13,9 +13,10 @@ After 4 months, you will have a complete web application composed by:
 And the final data diagram looks like this:
 
 ![data_diagram](https://i.imgur.com/4qOQO1A.png)
-# First step and is creating a command interpreter.
+# Create a command interpreter.
 
-This is the first step towards building the first full web application: the AirBnB clone. This first step is very important because we will use what we build during this project with all other following projects: HTML/CSS templating, database storage, API, front-end integration…
+This is the first step towards building the first full web application: the AirBnB clone.
+The other following projects: HTML/CSS templating, database storage, API, front-end integration…
 
 
 ## Execution
