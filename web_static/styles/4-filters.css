@@ -3,14 +3,14 @@
     background: white;
     height: 70px;
     width: 100%;
-    border: 1px solid #DDD;
+    border: 1px solid #DDDDDD;
     border-radius: 4px;
 }
 button {
     position: absolute;
     font-size: 18px;
     background: #FF5A5F;
-    color: #FFF;
+    color: #FFFFFF;
     height: 48px;
     width: 20%;
     border-style: none;
