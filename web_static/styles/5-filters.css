@@ -10,7 +10,7 @@ button {
     position: absolute;
     font-size: 18px;
     background: #FF5A5F;
-    color: #FFFFFF;
+    color: #FFF;
     height: 48px;
     width: 20%;
     border-style: none;
@@ -20,4 +20,24 @@ button {
 }
 button:hover {
     opacity: 0.9;
+}
+.filters div {
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    width: 25%;
+}
+.filters h3 {
+    margin-left: 15%;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+.filters h4 {
+    margin-left: 15%;
+    margin-top: 0;
+    font-weight: 400;
+    font-size: 14px;
+}
+.locations {
+    border-right: 1px solid #DDD;
 }
