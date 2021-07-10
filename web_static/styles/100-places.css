@@ -81,3 +81,49 @@
 .user {
   margin-bottom: 1.5%;
 }
+
+article .amenities ul li .tv {
+    background: url("../images/icon_tv.png") no-repeat;
+    width: 50px;
+    height: 60px;
+}
+
+article .amenities ul li .wifi {
+    background: url("../images/icon_wifi.png") no-repeat;
+    width: 50px;
+    height: 60px;
+}
+
+article .amenities ul li .pets {
+    background: url("../images/icon_pets.png") no-repeat;
+    width: 50px;
+    height: 60px;
+}
+
+article .amenities h2{
+    margin-top: 40px;
+    font-size: 16px;
+    border-bottom: #DDD solid 1px;
+    display: flex;
+    justify-content: flex-start;
+    width: 390px;
+}
+
+article .amenities ul li {
+    list-style-type: none;
+    display: flex;
+    width: 300px;
+    margin-left: -40px;
+    height: auto;
+}
+
+article .reviews{
+    margin-top: 40px;
+}
+
+article .reviews h2{
+    font-size: 16px;
+    border-bottom: #DDD solid 1px;
+    display: flex;
+    justify-content: flex-start;
+}
