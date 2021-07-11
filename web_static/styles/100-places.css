@@ -127,3 +127,9 @@ article .reviews h2{
     display: flex;
     justify-content: flex-start;
 }
+
+article .reviews ul li {
+    list-style-type: none;
+    margin-left: -40px;
+}
+
